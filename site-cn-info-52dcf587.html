@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料索引 · 500彩票网官方 · 信息知识库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fde8cd 0%, #f9d5a7 40%, #f2c48f 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            line-height: 1.6;
+            color: #3b2e25;
+        }
+
+        .library {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 卡片容器 */
+        .card-panel {
+            background: #fffffffa;
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 2.5rem 2.2rem;
+            box-shadow: 0 20px 40px -12px rgba(100, 60, 30, 0.25), 0 8px 16px -6px rgba(80, 50, 20, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+
+        /* 目录式网格布局 */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1.2rem 0;
+        }
+
+        .index-card {
+            background: #fef9f2;
+            border-radius: 28px;
+            padding: 1.6rem 1.2rem 1.2rem 1.2rem;
+            box-shadow: 0 2px 6px rgba(160, 110, 60, 0.08);
+            border: 1px solid #fff8ef;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .index-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -8px rgba(140, 90, 45, 0.15);
+            border-color: #f5d7b5;
+        }
+
+        .index-card h3 {
+            font-size: 1.3rem;
+            font-weight: 550;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.6rem;
+            color: #4c382a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .index-card h3::before {
+            content: "📇";
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .index-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-card li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: #5f4737;
+            border-bottom: 1px dashed #efe5da;
+        }
+
+        .index-card li:last-child {
+            border-bottom: none;
+        }
+
+        .index-card li::before {
+            content: "·";
+            position: absolute;
+            left: 4px;
+            color: #c1926b;
+            font-weight: bold;
+        }
+
+        /* hero / 说明区 */
+        .hero-note {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.8rem 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-note h1 {
+            font-size: 2rem;
+            font-weight: 560;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #624c3a, #4f3829);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-note .sub {
+            font-size: 1rem;
+            color: #7a624d;
+            background: #f8ede2;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            white-space: nowrap;
+            border: 1px solid #eddccd;
+            font-weight: 430;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #9b7b62;
+            margin-bottom: 0.5rem;
+            font-weight: 450;
+            border-left: 4px solid #dbb594;
+            padding-left: 0.8rem;
+        }
+
+        .intro-text {
+            font-size: 1.05rem;
+            max-width: 780px;
+            margin: 1.2rem 0 1.8rem 0;
+            color: #4b382b;
+            background: #fbf5ed;
+            padding: 1.2rem 1.8rem;
+            border-radius: 30px;
+            border: 1px solid #f0e2d3;
+        }
+
+        .intro-text a,
+        .link-sentence a {
+            color: #9b5f33;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1.5px solid #eacdb4;
+            transition: border-color 0.2s, background 0.1s;
+            padding: 0 0.1rem;
+            border-radius: 6px;
+        }
+
+        .intro-text a:hover,
+        .link-sentence a:hover {
+            border-bottom-color: #b87a4c;
+            background: #fff3e6;
+        }
+
+        /* 提示区 + 相关信息区 混合双栏 */
+        .info-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .info-box {
+            background: #fbf3ea;
+            border-radius: 28px;
+            padding: 1.5rem 1.6rem;
+            border: 1px solid #f1e2d1;
+            box-shadow: 0 2px 8px rgba(100, 70, 40, 0.04);
+        }
+
+        .info-box h4 {
+            font-size: 1.1rem;
+            font-weight: 530;
+            margin-bottom: 0.8rem;
+            color: #503c2e;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-box h4 span {
+            font-size: 1.2rem;
+        }
+
+        .info-box p,
+        .info-box li {
+            font-size: 0.98rem;
+            color: #4f3b2d;
+        }
+
+        .info-box ul {
+            padding-left: 1.2rem;
+            list-style: none;
+        }
+
+        .info-box ul li {
+            padding: 0.25rem 0;
+            position: relative;
+        }
+
+        .info-box ul li::before {
+            content: "▪";
+            color: #be8f68;
+            font-weight: bold;
+            display: inline-block;
+            width: 1rem;
+            margin-left: -1rem;
+        }
+
+        .faq-mini {
+            margin-top: 1.5rem;
+            background: #fef7ef;
+            border-radius: 24px;
+            padding: 1.4rem 1.6rem;
+            border: 1px solid #efe1cf;
+        }
+
+        .faq-mini h4 {
+            font-size: 1.05rem;
+            font-weight: 530;
+            margin-bottom: 0.7rem;
+            color: #543f30;
+        }
+
+        .faq-mini details {
+            margin: 0.6rem 0;
+            border-bottom: 1px dashed #e4d2be;
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-mini details summary {
+            cursor: pointer;
+            font-weight: 470;
+            color: #5b4332;
+            padding: 0.2rem 0;
+            list-style: '❓ ';
+        }
+
+        .faq-mini details p {
+            margin-top: 0.3rem;
+            padding-left: 0.8rem;
+            font-size: 0.95rem;
+            color: #5f4a39;
+            border-left: 3px solid #dbb594;
+            padding-left: 1rem;
+        }
+
+        .link-sentence {
+            background: #f8ede1;
+            padding: 0.9rem 1.4rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0.6rem 0 0.2rem 0;
+            font-size: 1rem;
+            border: 1px solid #efddcb;
+        }
+
+        .link-sentence a {
+            font-weight: 520;
+        }
+
+        .footer-note {
+            margin-top: 2.2rem;
+            border-top: 1px solid #eddaca;
+            padding-top: 1.2rem;
+            font-size: 0.9rem;
+            color: #7d6652;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 750px) {
+            .card-panel {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .info-duo {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .hero-note {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-note h1 {
+                font-size: 1.8rem;
+            }
+
+            .index-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.6rem;
+            }
+
+            .card-panel {
+                border-radius: 28px;
+                padding: 1.4rem 0.9rem;
+            }
+
+            .intro-text {
+                padding: 0.9rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="library">
+    <div class="card-panel">
+        <!-- hero + 说明区 -->
+        <div class="hero-note">
+            <h1>信息索引 · 知识库</h1>
+            <span class="sub">资料整理 · 目录感入口</span>
+        </div>
+
+        <div class="section-label">关于本库</div>
+        <div class="intro-text">
+            这里是一处围绕<a href="https://site-cn-500.com">500彩票网官方</a>所搭建的轻量资料索引页。内容多从公开信息与使用笔记中摘录整理，不做投资引导，仅作为信息归纳和结构展示。页面采用卡片目录布局，便于快速定位感兴趣的部分。
+        </div>
+
+        <!-- 目录感卡片网格 -->
+        <div class="index-grid">
+            <div class="index-card">
+                <h3>平台概况</h3>
+                <ul>
+                    <li>发展时间线简述</li>
+                    <li>主要服务类型</li>
+                    <li>备案与资质备注</li>
+                    <li>用户协议摘要</li>
+                </ul>
+            </div>
+            <div class="index-card">
+                <h3>功能导览</h3>
+                <ul>
+                    <li>彩种查询工具</li>
+                    <li>开奖公告归档</li>
+                    <li>数据图表参考</li>
+                    <li>个人中心说明</li>
+                </ul>
+            </div>
+            <div class="index-card">
+                <h3>使用参考</h3>
+                <ul>
+                    <li>注册与账户安全</li>
+                    <li>充值及提现流程</li>
+                    <li>常见术语释义</li>
+                    <li>客服与帮助通道</li>
+                </ul>
+            </div>
+            <div class="index-card">
+                <h3>延伸笔记</h3>
+                <ul>
+                    <li>彩票知识小集</li>
+                    <li>概率与理性参与</li>
+                    <li>相关法规要点</li>
+                    <li>站外参考链接</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提示区 + 相关信息（双栏） -->
+        <div class="info-duo">
+            <div class="info-box">
+                <h4><span>💡</span> 提示与说明</h4>
+                <ul>
+                    <li>本索引页并非官方页面，仅作资料整理用途。</li>
+                    <li>索引内容可能随时间调整，请以实际站点公告为准。</li>
+                    <li>所有开奖信息及数据均以国家认可的发布渠道为最终依据。</li>
+                    <li>理性参与，量力而行，本页不构成任何购买建议。</li>
+                </ul>
+                <div style="margin-top: 0.8rem; font-style: italic; color: #7a624d; font-size: 0.92rem;">
+                    ⏳ 信息更新于近期整理版本
+                </div>
+            </div>
+            <div class="info-box">
+                <h4><span>📎</span> 相关信息</h4>
+                <ul>
+                    <li>官方站点：<a href="https://site-cn-500.com" style="color:#8f643e; text-decoration: underline 1px dotted #cba07c;">500彩票网官方</a></li>
+                    <li>常见问题 (FAQ) 摘要见下方</li>
+                    <li>资料归档：版本 2025.04</li>
+                    <li>另可参考：行业资讯 / 数据公告板</li>
+                </ul>
+                <div class="link-sentence" style="margin-top: 0.8rem;">
+                    🔗 若有兴趣查阅更多背景，可以访问 <a href="https://site-cn-500.com">500彩票网官方</a> 的页面内容。
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ摘要区 -->
+        <div class="faq-mini">
+            <h4>📋 常见问题摘要</h4>
+            <details>
+                <summary>如何确认开奖号码的准确性？</summary>
+                <p>建议以财政或体彩中心官方公告为第一信源。本站索引仅作聚合展示，不替代官方数据。</p>
+            </details>
+            <details>
+                <summary>账户安全有哪些基本设置？</summary>
+                <p>推荐开启二次验证、定期修改密码、不在公共设备保存登录信息。具体设置路径可在相关页面查阅。</p>
+            </details>
+            <details>
+                <summary>资料索引是否会频繁更新？</summary>
+                <p>依据站点功能变动或信息补充不定期修订。本页仅为轻量知识库，不保证实时同步所有细节。</p>
+            </details>
+            <details>
+                <summary>为什么选择卡片目录的形式？</summary>
+                <p>便于快速浏览和定位内容模块，减少长页面滚动负担，适合信息索引场景。</p>
+            </details>
+        </div>
+
+        <!-- 底部脚注 / 温和叙述 -->
+        <div class="footer-note">
+            <span>📚 资料索引页 · 非官方页面 · 仅供信息参考</span>
+            <span>内容整理方向：知识库入口 &nbsp;|&nbsp; 卡片目录</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
